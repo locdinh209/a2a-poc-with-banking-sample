@@ -147,7 +147,7 @@ Use this checklist to evaluate AI vendor pitches or internal funding requests. I
 | **Internal HR Resume Parsing** | 🟡 **Monolith Permitted** | Single department ownership, identical data clearance layer, isolated execution. |
 | **Internal Document Search (RAG)** | 🟡 **Monolith Permitted** | Single capability, no complex multi-team routing, safe to share state context internally. |
 | **Retail Loan Origination** | 🟢 **A2A Mandatory** | Crosses departmental lines. Must securely interact with independent Compliance (KYC) and Core Banking services. |
-| **Integrating 3rd-Party AI SaaS** | 🔵 **MCP Mandatory** | Vendors rarely provide pure autonomous "agents." They provide API tools. We must connect our internal agents to their platforms via the standard Model Context Protocol (MCP). |
+| **Integrating 3rd-Party AI SaaS** | 🔵 **MCP** or 🟢 **A2A** | **Use MCP** when the vendor provides API services, tools, or data streams (e.g., Salesforce, Equifax). Wrap their APIs via the Model Context Protocol.<br><br>**Use A2A** only if the vendor explicitly exposes a fully autonomous, reasoning AI Agent that our internal agents must collaborate with via negotiation and delegation. |
 | **Public Customer Support Chatbot** | 🟢 **A2A Mandatory** | The public-facing support agent must pull data from dozens of distinct, highly-secured back-office agents (Billing, Fraud) without risking PII exposure. |
 
 ### 5.3. The Hard Directives
@@ -159,9 +159,11 @@ If a team is paying for a specific tool *entirely within their own department* a
 If an agent needs to communicate across departmental boundaries (e.g., Retail talking to Compliance), or if we are integrating a third-party vendor agent (e.g., Equifax, Bloomberg), **the A2A protocol is mandatory**. Do not buy or build monolithic platforms for cross-departmental orchestration.
 
 **Directive 3: 3rd-Party Vendors and Data Access (MCP vs A2A)**
-When connecting an internal agent to a 3rd-party SaaS vendor (e.g., Salesforce, Stripe) or our internal databases (e.g., SQL ledgers), mandate the **Model Context Protocol (MCP)**. 
-It is exceedingly rare for a vendor to expose a fully autonomous agent that requires cross-agent A2A orchestration. Instead, vendors expose tools, APIs, and enterprise data which are structurally consumed via MCP servers.
-*Rule of Thumb: Agents talk to other Agents via A2A. Agents talk to Software/Data via MCP.*
+When connecting an internal agent to a 3rd-party SaaS provider or ledger, ask: *Is the vendor providing Data/APIs, or an Autonomous Agent?*
+- **Mandate MCP:** If the vendor is providing data lakes, CRM APIs, or transactional endpoints (e.g., Salesforce, Stripe, SQL), build an MCP server to wrap their API. Internal AI agents will consume this MCP server as a generic tool.
+- **Mandate A2A:** If the vendor is explicitly providing a distinct, fully autonomous AI Agent that is capable of reasoning and retaining state, configure an A2A network boundary to establish a secure agent-to-agent collaboration.
+
+*Rule of Thumb: Agents talk to other Agents via A2A. Agents talk to Software/Data APIs via MCP.*
 
 ---
 **Approval:** Chief Architecture Office
