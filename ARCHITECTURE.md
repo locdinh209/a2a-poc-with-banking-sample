@@ -98,6 +98,18 @@ Our internal proof-of-concept tests yielded the following metrics, mathematicall
 
 ---
 
+### 3.2. Conway's Law and Organizational Scaling
+
+The choice between a Monolith and A2A is heavily dictated by your organizational structure (Conway's Law). 
+
+* **Centralized AI / Tiger Teams (Monolith Driven):** If a single, tight-knit "AI Center of Excellence" team is building an internal chatbot, a Monolithic LangGraph approach is highly effective. The entire team works in a single repository, shares the same Python skill set, and deploys on a unified release schedule. The monolithic codebase perfectly mirrors their centralized team structure.
+* **The Multi-Team Enterprise (A2A Driven):** As soon as agent development is federated across different business units, Monoliths collapse under organizational friction. For example, if the Retail team builds the Loan Agent and the Compliance team builds the KYC Agent:
+   * **Release Cycles:** Compliance may need to deploy emergency regulation updates daily, while Retail deploys quarterly. A shared Monolith forces them into a synchronized deployment nightmare.
+   * **Technology Choice:** Compliance might prefer Java or Rust for performance/legacy reasons, while Retail prefers Python LangGraph. 
+   * **Ownership:** A2A allows each business unit to independently build, own, and operate their agents as dedicated microservices, entirely eliminating global merge conflicts and cross-team deployment blockers.
+
+---
+
 ## 4. The "Incubation to Marketplace" Lifecycle
 
 While A2A is the ultimate enterprise destination, cross-departmental projects can actually **start** as temporary Monoliths to maximize agility. 
