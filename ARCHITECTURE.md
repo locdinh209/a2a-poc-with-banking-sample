@@ -87,12 +87,12 @@ Our internal proof-of-concept tests yielded the following metrics, mathematicall
 
 | Feature | 1A. Monolithic (LLM Router) | 1B. Monolithic (Hardcoded Graph) | 2. Decentralized (A2A Protocol) |
 | :--- | :--- | :--- | :--- |
-| **Execution Speed** | 🔴 Unacceptable (~130s) | 🟡 Acceptable (~117s) | 🟢 Optimal (~97s, concurrent async) |
+| **Execution Speed** | 🔴 Unacceptable (~87s) | 🟢 Optimal (~69s, single memory space) | 🟢 Optimal (~71s, microservice network) |
 | **Code Coupling** | 🔴 Tight (Same Python env) | 🔴 Tight (Same Python env) | 🟢 None (Language & Server agnostic) |
 | **Security Risk** | 🔴 High (Prompt Injection) | 🔴 High (Shared Memory Leakage)| 🟢 Low (Cryptographic Network Boundaries) |
 
 **Key Findings Summary:**
-*   **The LLM Routing Tax:** The 1A Monolith was +34% slower because the Master LLM must continuously incur API round-trips to decide which tool to run next. A2A uses lightning-fast concurrent HTTP orchestrators.
+*   **The LLM Routing Tax:** The 1A Monolith (LLM Routing) was ~21.8% slower than A2A because the Master LLM must continuously incur API round-trips to decide which tool to run next. A2A bypasses this entirely using concurrent HTTP streaming routing.
 *   **Monolithic Coupling:** Deploying agents via 1A/B physically binds all enterprise teams to the exact same Python LangGraph version. A2A allows the Fraud Team to use Rust while Retail uses Python.
 *   **Prompt Injection Vulnerability:** In 1A/B, if a bad actor slips a malicious payload into a transaction document, that string sits inside the monolithic prompt window and can poison the Master LLM. A2A prevents this by only accepting strict, validated JSON artifacts back across the network.
 
