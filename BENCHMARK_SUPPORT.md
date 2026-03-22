@@ -15,9 +15,9 @@ We tested identical loan application scenarios for all three approaches:
 | Execution Phase | A2A Protocol (Python Orchestration over HTTP) | Sub-agents as Tools (LLM ReAct Orchestration) | Agent as Sub-graphs (Deterministic Graph Routing) | 
 | :--- | :--- | :--- | :--- |
 | **Routing Mechanism** | Hardcoded Async Python | LLM (Prompt/Tool loops) | Hardcoded LangGraph Edges |
-| **Phase 2: Healthy Pipeline** | ~62.00s | 101.23s | 90.49s |
-| **Phase 3: Failed KYC** | ~28.00s | 28.67s | 26.64s |
-| **Total Runtime** | **~97.00s** | **130.00s (+34%)** | **117.13s (+20%)** |
+| **Phase 2: Healthy Pipeline** | 93.67s | 108.94s | 93.18s |
+| **Phase 3: Failed KYC** | 15.92s | 44.11s | 22.97s |
+| **Total Runtime** | **109.59s** | **153.05s (+39.6%)** | **116.15s (+6.0%)** |
 
 ---
 
